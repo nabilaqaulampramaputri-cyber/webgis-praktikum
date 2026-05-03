@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Geospatial Mashup</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        #map {
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        // --- Inisialisasi Peta ---
+        var mymap = L.map('map').setView([-7.766666647456262, 110.36341772575025], 14);
+        // --- Basemap OpenStreetMap ---
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">' +
+                'OpenStreetMap</a> contributors'
+        }).addTo(mymap);
+        // --- Marker (Objek Titik) ---
+        var marker = L.marker([-7.7667282193712595, 110.36299171207179]).addTo(mymap);
+        marker.bindPopup('<b>Lokasi A</b><br>Deskripsi lokasi.');
+        // --- Circle (Objek Lingkaran) ---
+        var circle = L.circle([-7.7667282193712595, 110.36299171207179], {
+            color: '#e9e0d7', fillColor: '#2b1716',
+            fillOpacity: 0.5, radius: 70
+        }).addTo(mymap);
+        circle.bindPopup('Area penyebab kepadatan.');
+        // --- Polygon (Objek Area) ---
+        var polygon = L.polygon([
+            [-7.7662709338214455, 110.36255935574792], [-7.767263977837999, 110.36255935574792],
+            [-7.767263977837999, 110.36435986780583], [-7.7662709338214455, 110.36435986780583]
+        ], { color: '#2b1716', fillColor: '#e9e0d7', fillOpacity: 0.5 })
+            .addTo(mymap);
+        polygon.bindPopup('Area Sekolah');
+        // --- Polyline (Objek Garis) ---
+        var polyline = L.polyline([
+            [-7.767080730146986, 110.36288849166266], [-7.767166656549591, 110.36330431267572],
+            [-7.766673130305179, 110.36341994204702]
+        ], { color: '#FF0000', weight: 5, opacity: 0.8 })
+            .addTo(mymap);
+        polyline.bindPopup('Jalur Keluar Masuk Kendaraan');
+    </script>
+</body>
+
+</html>
